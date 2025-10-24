@@ -15,22 +15,43 @@ sections:
     items: []
     widgets:
       - type: embed
-        id: timestamp-widget
-        options:
-          html: <div id="timestamp"></div>
-          script: |
-            function updateTimestamp() {
-              const now = new Date();
-              const timestamp = now.getFullYear().toString() +
-                (now.getMonth() + 1).toString().padStart(2, '0') +
-                now.getDate().toString().padStart(2, '0') + '-' +
-                now.getHours().toString().padStart(2, '0') +
-                now.getMinutes().toString().padStart(2, '0') +
-                now.getSeconds().toString().padStart(2, '0');
-              document.getElementById('timestamp').innerText = timestamp;
-            }
-            setInterval(updateTimestamp, 1000);
-            updateTimestamp();
+  id: timestamp-widget
+  options:
+    html: |
+      <div id="timestamp"></div>
+      <button id="copy-btn" style="margin-left: 10px; padding: 5px 10px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">复制时间戳</button>
+    script: |
+      function updateTimestamp() {
+        const now = new Date();
+        const timestamp = now.getFullYear().toString() +
+          (now.getMonth() + 1).toString().padStart(2, '0') +
+          now.getDate().toString().padStart(2, '0') + '-' +
+          now.getHours().toString().padStart(2, '0') +
+          now.getMinutes().toString().padStart(2, '0') +
+          now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('timestamp').innerText = timestamp;
+      }
+      
+      // 添加复制功能
+      document.getElementById('copy-btn').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(document.getElementById('timestamp').innerText);
+          alert('时间戳已复制到剪贴板！');  // 可选：提示复制成功
+        } catch (err) {
+          console.error('复制失败: ', err);
+          // Fallback: 老浏览器兼容（可选）
+          const textArea = document.createElement('textarea');
+          textArea.value = document.getElementById('timestamp').innerText;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          alert('时间戳已复制到剪贴板！');
+        }
+      });
+      
+      setInterval(updateTimestamp, 1000);
+      updateTimestamp();
   - name: Getting Started
     icon: fas fa-rocket
     items:
