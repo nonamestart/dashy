@@ -14,7 +14,7 @@ sections:
   - name: System Info
     items: []
     widgets:
-      - type: custom
+      - type: embed
         id: timestamp-widget
         options:
           html: <div id="timestamp"></div>
