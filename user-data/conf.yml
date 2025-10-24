@@ -1,3 +1,4 @@
+```yaml
 pageInfo:
   title: boz.ng
   description: one cup of coffee, internet browser, one afternoon.
@@ -17,7 +18,7 @@ sections:
       - type: embed
         id: timestamp-widget
         options:
-          html: <div id="timestamp"></div>
+          html: <div id="timestamp" style="color: white; font-size: 18px;"></div>
           script: |
             function updateTimestamp() {
               const now = new Date();
@@ -79,3 +80,4 @@ sections:
       - *ref_3
       - *ref_4
       - *ref_5
+```
